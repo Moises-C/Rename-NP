@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QMainWindow
 from UI.interface import Ui_MainWindow
 from View.ViewApp import View
 from Model.Rename import Rename
-
+from PyQt5.QtWidgets import QMessageBox
 
 class NPController(QMainWindow):
     
@@ -24,7 +24,13 @@ class NPController(QMainWindow):
         root = self.ui.input_directory.text()
         node_origin = self.ui.node_origin.text()
         node_destin = self.ui.node_destin.text()
-        print(root, node_origin, node_destin)
         
-        self.rename = Rename(root, node_origin, node_destin)
-        self.rename.rename()
+        if len(root) > 0 and len(node_origin) > 0 and len(node_destin):
+            try:
+                self.rename = Rename(root, node_origin, node_destin)
+                self.rename.rename()
+                self.view.alert_succesfull()
+            except BaseException as e:
+                self.view.alert_unsuccessfull(e)
+        else:
+            self.view.alert_empty_fields()

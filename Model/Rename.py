@@ -27,8 +27,9 @@ class Rename:
             for file in files:
                 if self.is_NP_file(file.name):
                     self.overwrite_file(file.path)
-    
+
     def overwrite_file(self, path):
+        # print(path)
         if os.path.exists(path):    
             read_file = ""
             with open(path, "r", encoding="utf-8") as file:
