@@ -33,7 +33,7 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QSize(400, 279))
         MainWindow.setMaximumSize(QSize(400, 279))
         icon = QIcon()
-        icon.addFile(u"img/icon.ico", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u"img/main_ico.ico", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet(u"#MainWindow{\n"
 "	background-color: #f5f7fb;\n"
