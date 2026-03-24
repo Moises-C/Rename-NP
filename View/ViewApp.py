@@ -14,6 +14,9 @@ class View:
     def alert_succesfull(self, count):
         QMessageBox.information(self.ui.centralwidget, "Finalizado", f"Se concreto correctamente el renombrado de archivos de {count} archivo(s) NP.xml.")
     
+    def zero_match(self):
+        QMessageBox.information(self.ui.centralwidget, "Finalizado", f"No hay archivos NP que renombrar.")
+    
     def alert_unsuccessfull(self,e):
         QMessageBox.critical(self.ui.centralwidget, "Ha ocurrido un problema", f"{e}")
         

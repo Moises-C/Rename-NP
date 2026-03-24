@@ -4,7 +4,7 @@ import re
 class Rename:
 
     def __init__(self, path, node_origin, node_destin):
-        self.count = 0
+        self._count = 0
         self.root = path
         self._node_origin = node_origin
         self._node_destin = node_destin
@@ -33,7 +33,6 @@ class Rename:
         with os.scandir(directory) as files:
             for file in files:
                 if self.is_NP_file(file.name):
-                    self.count += 1
                     self.overwrite_file(file.path)
 
     def overwrite_file(self, path):
@@ -42,9 +41,12 @@ class Rename:
             read_file = ""
             with open(path, "r", encoding="utf-8") as file:
                 read_file = file.read()  
-        read_file = re.sub(self._node_origin, self._node_destin, read_file)
-        with open(path, "w", encoding="utf-8") as file:
-            file.write(read_file)
+
+        if re.search(self._node_origin, read_file) is not None:
+            read_file = re.sub(self._node_origin, self._node_destin, read_file)
+            with open(path, "w", encoding="utf-8") as file:
+                self._count += 1
+                file.write(read_file)
             #print("Destinos de: ", self._node_origin, self._node_destin)
 
     def is_NP_file(self, filename):
@@ -52,8 +54,6 @@ class Rename:
         return True if search is not None else False
 
     def get_count(self):
-        return self.count
+        return self._count
 
-    def set_count(self, value):
-        self.count = value
 

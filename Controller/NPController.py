@@ -33,7 +33,10 @@ class NPController(QMainWindow):
                 try:
                     self.rename = Rename(root, node_origin, node_destin)
                     self.rename.rename2(self.consult.get_custom_declare())
-                    QMetaObject.invokeMethod(self, "alert_successfull", Qt.QueuedConnection, Q_ARG(object, self.rename.get_count())) 
+                    if self.rename.get_count():
+                        QMetaObject.invokeMethod(self, "alert_successfull", Qt.QueuedConnection, Q_ARG(object, self.rename.get_count())) 
+                    else:
+                        QMetaObject.invokeMethod(self, "zero_match", Qt.QueuedConnection) 
                 except BaseException as e:
                     self.view.hide_progress()
                     self.view.alert_unsuccessfull(e)
@@ -49,3 +52,7 @@ class NPController(QMainWindow):
     @pyqtSlot()
     def hide_progress(self):
         self.view.hide_progress()
+
+    @pyqtSlot()
+    def zero_match(self):
+        self.view.zero_match()
