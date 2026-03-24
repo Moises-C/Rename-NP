@@ -1,8 +1,10 @@
 import os
 import re
 
-class Rename:    
+class Rename:
+
     def __init__(self, path, node_origin, node_destin):
+        self.count = 0
         self.root = path
         self._node_origin = node_origin
         self._node_destin = node_destin
@@ -13,7 +15,12 @@ class Rename:
                if item.is_dir():
                    self.search_in_subdirectory(item.path)
 
-    # method recursive
+    def rename2(self, references):
+        for reference in references:
+            path = os.path.join(self.root,reference[0])
+            if os.path.exists(os.path.join(path)):
+                self.search_in_subdirectory(path)
+
     def search_in_subdirectory(self, directory):
         with  os.scandir(directory) as items:
              for item in items:
@@ -26,6 +33,7 @@ class Rename:
         with os.scandir(directory) as files:
             for file in files:
                 if self.is_NP_file(file.name):
+                    self.count += 1
                     self.overwrite_file(file.path)
 
     def overwrite_file(self, path):
@@ -42,3 +50,10 @@ class Rename:
     def is_NP_file(self, filename):
         search = re.search(".*?NP\.xml", filename)
         return True if search is not None else False
+
+    def get_count(self):
+        return self.count
+
+    def set_count(self, value):
+        self.count = value
+

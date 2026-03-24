@@ -11,8 +11,8 @@ class View:
     def get_directory(self):
         return QFileDialog.getExistingDirectory(self.ui.centralwidget, "Selecciona el directorio de archivos NP.", QDir().homePath() )
     
-    def alert_succesfull(self):
-        QMessageBox.information(self.ui.centralwidget, "Finalizado", "Se concreto correctamente el renombrado de archivos.")
+    def alert_succesfull(self, count):
+        QMessageBox.information(self.ui.centralwidget, "Finalizado", f"Se concreto correctamente el renombrado de archivos de {count} archivo(s) NP.xml.")
     
     def alert_unsuccessfull(self,e):
         QMessageBox.critical(self.ui.centralwidget, "Ha ocurrido un problema", f"{e}")
