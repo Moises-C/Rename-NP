@@ -4,17 +4,21 @@ from UI.interface import Ui_MainWindow
 from View.ViewApp import View
 from Model.Rename import Rename
 from Repository.ConsultRepository import ConsultRepository
+from Model.ApiRest import API
 import threading
 
 class NPController(QMainWindow):
-    
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.view = View(self.ui)
+        self.api = API()
         self.consult = ConsultRepository()
         self.signals()
+
+    def get_references(self):
+        self.api.get("clarion")
 
     def signals(self):
         self.ui.search_directory_btn.clicked.connect(self.set_directory)
@@ -31,8 +35,9 @@ class NPController(QMainWindow):
         def work():
             if len(root) > 0 and len(node_origin) > 0 and len(node_destin):
                 try:
+                    self.get_references()
                     self.rename = Rename(root, node_origin, node_destin)
-                    self.rename.rename2(self.consult.get_custom_declare())
+                    self.rename.rename2(self.api.get_response()["references"])
                     if self.rename.get_count():
                         QMetaObject.invokeMethod(self, "alert_successfull", Qt.QueuedConnection, Q_ARG(object, self.rename.get_count())) 
                     else:

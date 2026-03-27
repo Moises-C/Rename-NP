@@ -5,11 +5,8 @@ class API:
     
     json_client = None
     response = None
-    URL = {"report": "http://200.66.88.166:5010/report",
-           "letter": "http://200.66.88.166:5010/letter",
-           "update": "http://200.66.88.166:5010/report/update",
-           "catalog": "http://200.66.88.166:5010/KPI/preload",
-           "list_report": "http://200.66.88.166:5010/list_reports"
+    URL = {
+        "clarion": "http://200.66.88.166:5010/clarion"
     }
     HEADERS = {"X-API-KEY" : "17d6a5fdd4e94e251238b42e1e8dd5c7dcb8c8702b43ece2b9f630f6b92e3b2f"}
 

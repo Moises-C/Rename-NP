@@ -12,7 +12,7 @@ class View:
         return QFileDialog.getExistingDirectory(self.ui.centralwidget, "Selecciona el directorio de archivos NP.", QDir().homePath() )
     
     def alert_succesfull(self, count):
-        QMessageBox.information(self.ui.centralwidget, "Finalizado", f"Se concreto correctamente el renombrado de archivos de {count} archivo(s) NP.xml.")
+        QMessageBox.information(self.ui.centralwidget, "Finalizado", f"Se concreto correctamente el renombrado de {count} archivo(s) NP.xml.")
     
     def zero_match(self):
         QMessageBox.information(self.ui.centralwidget, "Finalizado", f"No hay archivos NP que renombrar.")
